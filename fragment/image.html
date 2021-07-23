@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<body>
+<!-- /*
+This is a responsive image, it loads different sizes depending on device
+https://medium.freecodecamp.org/a-guide-to-responsive-images-with-ready-to-use-templates-c400bd65c433
+https://stackoverflow.com/questions/44662338/how-to-build-srcset-attribute-with-thymeleaf
+https://www.jpegsmaller.com/
+*/-->
+<img th:class="${cssClass}" th:fragment="img (url, cssClass, sizes)"
+     th:src="@{${url}}"
+     th:attr="srcset=|
+     @{${#themeUtil.imgUrl(url,'s')}} 320w,
+     @{${#themeUtil.imgUrl(url,'m')}} 640w,
+     @{${#themeUtil.imgUrl(url,'x')}} 1000w,
+     @{${#themeUtil.imgUrl(url,'xl')}} 2000w |"
+     th:sizes="${sizes ?: '100vw'}"
+     sizes="100vw"
+/>
+</body>
+</html>

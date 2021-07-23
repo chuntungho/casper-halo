@@ -1,0 +1,33 @@
+<!--/* custom page */-->
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+      th:replace="layout/base::html (${post.title}, ~{::resources}, ~{::content},
+      ${#strings.concat('page-template sheet-', post.slug)} )">
+
+<th:block th:fragment="resources" th:utext="${options['blog_custom_content_head']}"/>
+
+<body>
+
+<article th:fragment="content" th:attr="class=|article post page ${#strings.isEmpty(post.thumbnail) ? 'no-image' :''}|">
+    <header class="article-header gh-canvas" th:unless="${#strings.isEmpty(post.thumbnail)}">
+        <figure class="article-image">
+            <img class="site-header-cover" th:src="${post.thumbnail}" src="none"/>
+        </figure>
+    </header>
+
+    <section class="gh-content gh-canvas">
+        <h1 class="article-title" th:text="${post.title}">Sheet title</h1>
+        <p th:fragment="content" th:utext="${post.formatContent}">
+            Sheet content
+        </p>
+    </section>
+
+    <section class="article-comments gh-canvas"
+             th:unless="${post.disallowComment}"
+             th:insert="fragment/comment::comment (${post.id}, 'sheet')">
+        Comment plugin
+    </section>
+</article>
+
+</body>
+</html>

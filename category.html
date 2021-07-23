@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+      th:replace="layout/base::html(${category.name}, _, ~{::content}, 'tag-template')">
+
+<body>
+<th:block th:fragment="content">
+
+<section class="outer">
+    <div class="inner posts">
+        <div class="post-feed">
+            <section class="post-card post-card-large">
+                <div th:unless="${#strings.isEmpty(category.thumbnail)}" class="post-card-image-link">
+                    <img class="post-card-image" th:src="${category.thumbnail}" />
+                </div>
+
+                <div class="post-card-content">
+                    <div class="post-card-content-link">
+                        <header class="post-card-header">
+                            <div class="post-card-primary-tag">Category</div>
+                            <h2 class="post-card-title" th:text="${category.name}">Category name</h2>
+                        </header>
+                        <div class="post-card-excerpt">
+                            <p th:unless="${#strings.isEmpty(category.description)}" th:text="${category.description}">
+                               Category description
+                            </p>
+                            <p th:if="${#strings.isEmpty(category.description)}">
+                                A collection of [[${#lists.size(posts)}]] posts.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div th:replace="~{fragment/post-card :: posts (false) }">
+                Post cards
+            </div>
+        </div>
+    </div>
+</section>
+</th:block>
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+      th:replace="layout/page::html(${options['archives_title'] ?: '文章归档'}, ${settings['archives_cover']}, ~{::content})">
+<body>
+
+<div th:fragment="content">
+    <th:block th:each="archive : ${archives}">
+        <h2 th:text="${archive.year + '年'}">年份</h2>
+        <ul class="listing">
+            <li th:each="post : ${archive.posts}">
+                <span th:text="${#dates.format(post.createTime,'MM月dd日')}">MM月dd日</span>
+                <a th:href="@{${post.fullPath}}" th:text="${post.title}">Post title</a>
+            </li>
+        </ul>
+    </th:block>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+      th:replace="layout/base::html(${post.title}, ~{::resources}, ~{::content}, 'post-template')">
+<head>
+    <th:block th:fragment="resources">
+        <th:block th:utext="${options['blog_custom_content_head']}"/>
+        <link rel="stylesheet" type="text/css"
+              th:href="@{${#themeUtil.url('/assets/prism/css/prism-' + (settings['code_pretty'] ?: 'Default') + '.css')}}" />
+        <script type="text/javascript" th:src="@{${#themeUtil.url('/assets/prism/js/prism.js')}}"></script>
+    </th:block>
+</head>
+
+<body>
+<article th:fragment="content" th:attr="class=|article post ${#strings.isEmpty(post.thumbnail) ? 'no-image' : ''}|">
+    <header class="article-header gh-canvas">
+        <section class="article-tag" th:unless="${#lists.isEmpty(post.categories)}">
+            <a th:href="${post.categories[0].fullPath}" th:text="${post.categories[0].name}">Category name</a>
+        </section>
+
+        <h1 class="article-title" th:text="${post.title}">Post Title</h1>
+
+        <!--/* <p class="article-excerpt" th:text="${post.summary}">Post Excerpt</p> */-->
+
+        <div class="article-byline">
+            <section class="article-byline-content">
+                <ul class="author-list">
+                    <li class="author-list-item">
+                        <a th:href="${options['blog_url']}" th:insert="fragment/icons/avatar"
+                           class="static-avatar author-profile-image">
+                        </a>
+                    </li>
+                </ul>
+                <div class="article-byline-meta">
+                    <h4 class="author-name" th:text="${user.nickname}">author</h4>
+                    <div class="byline-meta-content">
+                        <time class="byline-meta-date" th:text="${#dates.format(post.createTime,'yyyy-MM-dd')}">date
+                        </time>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <figure class="article-image" th:unless="${#strings.isEmpty(post.thumbnail)}">
+            <img th:src="${post.thumbnail}" th:alt="${post.title}"/>
+        </figure>
+    </header>
+
+    <section class="gh-content gh-canvas" th:utext="${post.formatContent}">
+        Post content
+    </section>
+
+    <section class="article-comments gh-canvas"
+             th:unless="${post.disallowComment}"
+             th:insert="fragment/comment::comment (${post.id}, 'post')">
+        Comment plugin
+    </section>
+</article>
+
+<aside class="read-more-wrap">
+    <div class="read-more inner">
+        TODO post cards...
+    </div>
+</aside>
+</body>
+</html>

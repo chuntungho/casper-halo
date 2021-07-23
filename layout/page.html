@@ -1,0 +1,22 @@
+<!--/* Custom page layout inheriting base layout */-->
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+      th:fragment="html (pageTitle, pageCover, pageContent)"
+      th:replace="layout/base::html (${pageTitle}, _, ~{::content}, 'post-template')">
+<body>
+
+<article th:fragment="content" th:attr="class=|article post page ${#strings.isEmpty(pageCover) ? 'no-image' :''}|">
+    <header class="article-header gh-canvas" th:unless="${#strings.isEmpty(pageCover)}">
+        <figure class="article-image">
+            <img class="site-header-cover" th:src="${pageCover}" src="none"/>
+        </figure>
+    </header>
+
+    <section class="gh-content gh-canvas">
+        <h1 class="article-title" th:text="${pageTitle}">Page title</h1>
+        <th:block th:replace="${pageContent}"> Page content </th:block>
+    </section>
+</article>
+
+</body>
+</html>

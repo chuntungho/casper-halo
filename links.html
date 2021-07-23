@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+      th:replace="layout/page::html (${options['link_title'] ?: '友情链接'}, ${settings['links_cover']}, ~{::content})">
+<body>
+
+<div th:fragment="content">
+    <ul th:unless="${#lists.isEmpty(links)}">
+        <li th:each="link : ${links}">
+            <a th:href="${link.url}" target="_blank" th:text="${link.name}">Link</a>
+            <span th:unless="${#strings.isEmpty(link.description)}"> - [[${link.description}]]</span>
+        </li>
+    </ul>
+</div>
+
+</body>
+</html>

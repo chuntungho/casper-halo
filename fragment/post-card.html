@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<body>
+<!--/* show large image for the first article on home page */-->
+<article th:fragment="posts(isHome)" th:each="post,stat : ${posts.content}"
+         th:attr="class=|post-card post ${#strings.isEmpty(post.thumbnail) ? 'no-image' : (isHome && stat.first) ? 'post-card-large' : ''}|">
+
+    <a th:unless="${#strings.isEmpty(post.thumbnail)}"
+       th:href="${post.fullPath}" class="post-card-image-link">
+        <img class="post-card-image" th:src="${post.thumbnail}" loading="lazy"/>
+    </a>
+
+    <div class="post-card-content">
+        <a class="post-card-content-link" th:href="${post.fullPath}">
+            <header class="post-card-header">
+                <h2 class="post-card-title" th:text="${post.title}">Post title</h2>
+            </header>
+            <section class="post-card-excerpt">
+                <p th:text="${post.summary}">Post excerpt</p>
+            </section>
+        </a>
+
+        <footer class="post-card-meta">
+            <ul class="author-list">
+                <li class="author-list-item">
+                    <a th:href="${options['blog_url']}" th:insert="fragment/icons/avatar"
+                       class="static-avatar author-profile-image"></a>
+                </li>
+            </ul>
+            <div class="post-card-byline-content">
+                <span th:text="${user.nickname}">Author Name</span>
+                <span class="post-card-byline-date" th:text="${#dates.format(post.createTime,'yyyy-MM-dd')}">
+                </span>
+            </div>
+        </footer>
+    </div>
+</article>
+</body>
+</html>

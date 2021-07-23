@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+      th:replace="layout/base::html(null, _, ~{::content}, 'home-template')">
+
+<body>
+<th:block th:fragment="content">
+    <div class="site-header-content" th:with="_cover=${settings['cover_image']}">
+        <!--/* responsive image by default */-->
+        <th:block th:if="${#strings.isEmpty(_cover)}"
+                  th:insert="fragment/image::img( ${#themeUtil.url('/assets/blog-cover.jpg')}, 'site-header-cover', _ )"/>
+        <!--/* or just show the configured image */-->
+        <img th:unless="${#strings.isEmpty(_cover)}" th:src="@{${_cover}}" class="site-header-cover"/>
+
+        <h1 class="site-title">
+            <span th:if="${#strings.isEmpty(options['blog_logo'])}" th:text="${options['blog_title']}">Site title</span>
+            <img class="site-logo" th:unless="${#strings.isEmpty(options['blog_logo'])}"
+                 th:src="${options['blog_logo']}" th:alt="${options['blog_title']}"/>
+        </h1>
+        <p th:unless="${#strings.isEmpty(options['blog_description'])}" th:text="${options['blog_description']}">
+            Site description
+        </p>
+    </div>
+
+    <main id="site-main" class="site-main outer">
+        <div class="inner posts">
+            <div class="post-feed" th:insert="~{fragment/post-card :: posts (true) }">
+                Post cards
+            </div>
+        </div>
+    </main>
+</th:block>
+</body>
+</html>
