@@ -17,9 +17,9 @@
 
     <section class="gh-content gh-canvas">
         <h1 class="article-title" th:text="${post.title}">Sheet title</h1>
-        <p th:fragment="content" th:utext="${post.formatContent}">
+        <th:block th:utext="${post.formatContent}">
             Sheet content
-        </p>
+        </th:block>
     </section>
 
     <section class="article-comments gh-canvas"
