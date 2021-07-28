@@ -2,8 +2,8 @@
 <html xmlns:th="https://www.thymeleaf.org">
 <body>
 <!--/* show large image for the first article on home page */-->
-<article th:fragment="posts(isHome)" th:each="post,stat : ${posts.content}"
-         th:attr="class=|post-card post ${#strings.isEmpty(post.thumbnail) ? 'no-image' : (isHome && stat.first) ? 'post-card-large' : ''}|">
+<article th:fragment="post (post, large)"
+         th:attr="class=|post-card post ${#strings.isEmpty(post.thumbnail) ? 'no-image' : large ? 'post-card-large' : ''}|">
 
     <a th:unless="${#strings.isEmpty(post.thumbnail)}"
        th:href="${post.fullPath}" class="post-card-image-link">

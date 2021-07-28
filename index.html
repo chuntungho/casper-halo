@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org"
-      th:replace="layout/base::html(null, _, ~{::content}, 'home-template')">
-
+      th:replace="layout/base::html(null, ~{::resources}, ~{::content}, 'home-template')">
+<head>
+    <th:block th:fragment="resources" th:if="${posts.hasNext()}">
+        <!--/* for infinite scroll */-->
+        <link rel="next" th:href="@{${'/page/' + (posts.nextOrLastPageable().pageNumber + 1)}}">
+    </th:block>
+</head>
 <body>
 <th:block th:fragment="content">
     <div class="site-header-content" th:with="_cover=${settings['cover_image']}">
@@ -23,8 +28,10 @@
 
     <main id="site-main" class="site-main outer">
         <div class="inner posts">
-            <div class="post-feed" th:insert="~{fragment/post-card :: posts (true) }">
-                Post cards
+            <div class="post-feed">
+                <th:block th:each="post, stat : ${posts.content}">
+                    <th:block th:replace="~{fragment/post-card :: post (${post}, ${posts.isFirst() && stat.first}) }" />
+                </th:block>
             </div>
         </div>
     </main>

@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org"
-      th:replace="layout/base::html(${tag.name}, _, ~{::content}, 'tag-template')">
+      th:replace="layout/base::html(${tag.name}, ~{::resources}, ~{::content}, 'tag-template')">
+<head>
+    <th:block th:fragment="resources" th:if="${posts.hasNext()}">
+        <link rel="next" th:href="@{${#strings.concat('/', options['tags_prefix'] ?: 'tags',
+        '/', tag.slug, '/page/', posts.nextOrLastPageable().pageNumber + 1)}}">
+    </th:block>
+</head>
 
 <body>
 <th:block th:fragment="content">
@@ -21,16 +27,16 @@
                         </header>
                         <div class="post-card-excerpt">
                             <p>
-                                A collection of [[${#lists.size(posts)}]] posts.
+                                A collection of [[${posts.totalElements}]] posts.
                             </p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <div th:replace="~{fragment/post-card :: posts (false) }">
-                Post cards
-            </div>
+            <th:block th:each="post, stat : ${posts.content}">
+                <th:block th:replace="~{fragment/post-card :: post (${post}, false) }" />
+            </th:block>
         </div>
     </div>
 </section>

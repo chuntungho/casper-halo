@@ -9,19 +9,19 @@
     <meta name="HandheldFriendly" content="True"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    <!--/* blog config */-->
+    <!--/* Blog config */-->
     <meta name="robots" content="none" th:if="${options['seo_spider_disabled']}">
     <meta name="generator" th:content="${'Halo'}"/>
     <meta name="keywords" th:content="${meta_keywords ?: options['meta_keywords']}"/>
     <meta name="description" th:content="${meta_description ?: options['meta_description']}"/>
     <link rel="shortcut icon" type="images/x-icon"
-          th:unless="${#strings.isEmpty(options['blog_favicon'])}" th:href="${options['blog_favicon']}">
+          th:unless="${#strings.isEmpty(options['blog_favicon'])}" th:href="@{${options['blog_favicon']}}">
 
-    <!--/* global head */-->
+    <link rel="stylesheet" type="text/css" th:href="@{${#themeUtil.url('/assets/built/screen.css')}}"/>
+    <style>:root {--ghost-accent-color: #15171A;}</style>
+
+    <!--/* Global head */-->
     <th:block th:utext="${options['blog_custom_head']}"/>
-
-    <link rel="stylesheet" type="text/css" th:href="${#themeUtil.url('/assets/built/screen.css')}"/>
-      <style>:root {--ghost-accent-color: #15171A;}</style>
 
     <th:block th:replace="${resources}">
         <!--/* Custom resources here */-->
@@ -46,7 +46,7 @@
             </div>
 
             <div class="gh-head-menu" th:insert="fragment/site-nav::nav">
-                Navigation here
+               <!--/* Navigation here */-->
             </div>
 
             <div class="gh-head-actions">
@@ -87,8 +87,8 @@
     </footer>
 </div>
 
-<script th:src="${#themeUtil.url('/assets/js/lib/jquery-3.5.1.min.js')}"></script>
-<script th:src="${#themeUtil.url('/assets/built/casper.js')}"></script>
+<script th:src="@{${#themeUtil.url('/assets/js/lib/jquery-3.5.1.min.js')}}"></script>
+<script th:src="@{${#themeUtil.url('/assets/built/casper.js')}}"></script>
 
 <script>
 $(document).ready(function () {
@@ -101,7 +101,7 @@ $(document).ready(function () {
 });
 </script>
 
-<!--/* global footer */-->
+<!--/* Global footer */-->
 <th:block th:utext="${options['blog_footer_info']}"/>
 <th:block th:utext="${options['blog_statistics_code']}"/>
 </body>
