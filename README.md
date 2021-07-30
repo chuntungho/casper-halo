@@ -8,6 +8,4 @@ It requires following static variables:
 - `List<MenuDTO> : menus` - Navigation list
 - `User : user` - Blog owner
 
-Also based on 2 Thymeleaf custom functions:
-- `themeUtil.url` - Append theme prefix to url for static resources
-- `themeUtil.imgUrl` - Join image size to url for responsive image
+![screenshot](screenshot.jpg)

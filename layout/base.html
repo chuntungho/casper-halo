@@ -17,7 +17,8 @@
     <link rel="shortcut icon" type="images/x-icon"
           th:unless="${#strings.isEmpty(options['blog_favicon'])}" th:href="@{${options['blog_favicon']}}">
 
-    <link rel="stylesheet" type="text/css" th:href="@{${#themeUtil.url('/assets/built/screen.css')}}"/>
+	<!--/* To avoid cached in browser by other themes, add query on custom resources */-->
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/built/screen.css(capser)}"/>
     <style>:root {--ghost-accent-color: #15171A;}</style>
 
     <!--/* Global head */-->
@@ -33,7 +34,7 @@
     <header id="gh-head" class="gh-head has-cover">
         <nav class="gh-head-inner inner gh-container">
             <div class="gh-head-brand">
-                <a class="gh-head-logo" th:href="${options['blog_url']}">
+                <a class="gh-head-logo" th:href="@{/}">
                     <img th:unless="${#strings.isEmpty(options['blog_logo'])}" th:src="${options['blog_logo']}"
                          th:alt="${options['blog_title']}"/>
                     <span th:if="${#strings.isEmpty(options['blog_logo'])}" th:text="${options['blog_title']}"></span>
@@ -72,7 +73,7 @@
     <footer class="site-footer outer">
         <div class="inner">
             <section class="copyright">
-                <a th:href="${options['blog_url']}" th:text="${options['blog_title']}"></a>
+                <a th:href="@{/}" th:text="${options['blog_title']}"></a>
                 &copy; [[${#dates.format(#dates.createToday(),'yyyy')}]]
             </section>
             <nav class="site-footer-nav" th:insert="fragment/site-nav::footer-nav">
@@ -87,8 +88,8 @@
     </footer>
 </div>
 
-<script th:src="@{${#themeUtil.url('/assets/js/lib/jquery-3.5.1.min.js')}}"></script>
-<script th:src="@{${#themeUtil.url('/assets/built/casper.js')}}"></script>
+<script th:src="@{/assets/js/lib/jquery-3.5.1.min.js}"></script>
+<script th:src="@{/assets/built/casper.js}"></script>
 
 <script>
 $(document).ready(function () {

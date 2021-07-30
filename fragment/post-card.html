@@ -6,12 +6,12 @@
          th:attr="class=|post-card post ${#strings.isEmpty(post.thumbnail) ? 'no-image' : large ? 'post-card-large' : ''}|">
 
     <a th:unless="${#strings.isEmpty(post.thumbnail)}"
-       th:href="${post.fullPath}" class="post-card-image-link">
-        <img class="post-card-image" th:src="${post.thumbnail}" loading="lazy"/>
+       th:href="@{${post.fullPath}}" class="post-card-image-link">
+        <img class="post-card-image" th:src="@{${post.thumbnail}}" loading="lazy"/>
     </a>
 
     <div class="post-card-content">
-        <a class="post-card-content-link" th:href="${post.fullPath}">
+        <a class="post-card-content-link" th:href="@{${post.fullPath}}">
             <header class="post-card-header">
                 <h2 class="post-card-title" th:text="${post.title}">Post title</h2>
             </header>
@@ -23,7 +23,7 @@
         <footer class="post-card-meta">
             <ul class="author-list">
                 <li class="author-list-item">
-                    <a th:href="${options['blog_url']}" th:insert="fragment/icons/avatar"
+                    <a th:href="@{/}" th:insert="fragment/icons/avatar"
                        class="static-avatar author-profile-image"></a>
                 </li>
             </ul>

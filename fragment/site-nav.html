@@ -3,7 +3,7 @@
 <body>
 <ul th:fragment="nav" class="nav" role="menu">
     <li th:each="menu : ${menus}" th:class="${'nav-' + menu.name}" role="menuitem">
-        <a th:text="${menu.name}" th:href="${menu.url}" th:target="${menu.target ?: '_blank'}"></a>
+        <a th:text="${menu.name}" th:href="@{${menu.url}}" th:target="${menu.target ?: '_blank'}"></a>
     </li>
 </ul>
 <ul th:fragment="footer-nav" class="nav" role="menu">

@@ -10,10 +10,10 @@ https://www.jpegsmaller.com/
 <img th:class="${cssClass}" th:fragment="img (url, cssClass, sizes)"
      th:src="@{${url}}"
      th:attr="srcset=|
-     @{${#themeUtil.imgUrl(url,'s')}} 320w,
-     @{${#themeUtil.imgUrl(url,'m')}} 640w,
-     @{${#themeUtil.imgUrl(url,'x')}} 1000w,
-     @{${#themeUtil.imgUrl(url,'xl')}} 2000w |"
+     @{${url}(size=s)} 320w,
+     @{${url}(size=m)} 640w,
+     @{${url}(size=x)} 1000w,
+     @{${url}(size=xl)} 2000w |"
      th:sizes="${sizes ?: '100vw'}"
      sizes="100vw"
 />

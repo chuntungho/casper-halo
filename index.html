@@ -12,7 +12,7 @@
     <div class="site-header-content" th:with="_cover=${settings['cover_image']}">
         <!--/* responsive image by default */-->
         <th:block th:if="${#strings.isEmpty(_cover)}"
-                  th:insert="fragment/image::img( ${#themeUtil.url('/assets/blog-cover.jpg')}, 'site-header-cover', _ )"/>
+                  th:insert="fragment/image::img( '/assets/blog-cover.jpg?casper', 'site-header-cover', _ )"/>
         <!--/* or just show the configured image */-->
         <img th:unless="${#strings.isEmpty(_cover)}" th:src="@{${_cover}}" class="site-header-cover"/>
 

@@ -5,8 +5,8 @@
     <th:block th:fragment="resources">
         <th:block th:utext="${options['blog_custom_content_head']}"/>
         <link rel="stylesheet" type="text/css"
-              th:href="@{${#themeUtil.url('/assets/prism/css/prism-' + (settings['code_pretty'] ?: 'default') + '.css')}}" />
-        <script type="text/javascript" th:src="@{${#themeUtil.url('/assets/prism/js/prism.js')}}"></script>
+              th:href="@{/assets/prism/css/prism-{style}.css (style=${settings['code_pretty'] ?: 'default'})}" />
+        <script type="text/javascript" th:src="@{/assets/prism/js/prism.js}"></script>
     </th:block>
 </head>
 
