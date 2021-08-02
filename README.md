@@ -8,4 +8,6 @@ It requires following static variables:
 - `List<MenuDTO> : menus` - Navigation list
 - `User : user` - Blog owner
 
+For i18n, use `#themes.code(messageKey)` to get localed message defined in i18n/i18n_xx.properties.
+
 ![screenshot](screenshot.jpg)

@@ -9,11 +9,14 @@ https://www.jpegsmaller.com/
 */-->
 <img th:class="${cssClass}" th:fragment="img (url, cssClass, sizes)"
      th:src="@{${url}}"
+     th:with="idx=${url.lastIndexOf('.')},
+        _prefix=${idx==-1 ? url : #strings.substring(url, 0, idx)},
+        _ext=${idx==-1 ? '' : #strings.substring(url, idx)}"
      th:attr="srcset=|
-     @{${url}(size=s)} 320w,
-     @{${url}(size=m)} 640w,
-     @{${url}(size=x)} 1000w,
-     @{${url}(size=xl)} 2000w |"
+     @{${_prefix+'-s'+_ext}} 320w,
+     @{${_prefix+'-m'+_ext}} 640w,
+     @{${_prefix+'-x'+_ext}} 1000w,
+     @{${_prefix+'-xl'+_ext}} 2000w |"
      th:sizes="${sizes ?: '100vw'}"
      sizes="100vw"
 />
