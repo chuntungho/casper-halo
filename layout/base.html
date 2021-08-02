@@ -20,7 +20,31 @@
 	<!--/* To avoid cached in browser by other themes, add query on custom resources */-->
     <link rel="stylesheet" type="text/css" th:href="@{/assets/built/screen.css(capser)}"/>
     <style>:root {--ghost-accent-color: #15171A;}</style>
+	<style>
+	.dropdown {
+	  position: relative;
+	  display: inline-block;
+	}
 
+	.dropdown-content {
+	  display: none;
+	  position: absolute;
+	  background-color: #333;
+	  overflow: auto;
+	  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	  z-index: 1;
+	}
+
+	.dropdown-content a {
+	  padding: 5px 8px;
+	  display: block;
+	}
+
+	.dropdown a.disabled {color: #999; cursor: default;}
+
+	.show {display: block;}
+	</style>
+	
     <!--/* Global head */-->
     <th:block th:utext="${options['blog_custom_head']}"/>
 
@@ -60,6 +84,14 @@
                                        <a class="searchbtn" href="#"><i class="fa fa-search"></i></a>
                                    </form>
                                </div>-->
+
+				<div class="dropdown" th:with="_locale=${#locale.toString()}">
+				  <a class="dropdown-button" href="#" th:text="${#themes.code('language') ?: 'Lang'}">Lang</a>
+				  <div class="dropdown-content">
+					<a th:href="${_locale=='zh_CN' ? '#' : '?locale=zh_CN'}" th:class="${_locale=='zh_CN' ? 'disabled' : ''}">中</a>
+					<a th:href="${_locale=='en' ? '#' : '?locale=en'}" th:class="${_locale=='en' ? 'disabled' : ''}">en</a>
+				  </div>
+				</div>
             </div>
         </nav>
     </header>
@@ -71,15 +103,18 @@
     </main>
 
     <footer class="site-footer outer">
+		<!--/* Global footer */-->
+		<th:block th:utext="${options['blog_footer_info']}"/>
+		
         <div class="inner">
             <section class="copyright">
-                <a th:href="@{/}" th:text="${options['blog_title']}"></a>
                 &copy; [[${#dates.format(#dates.createToday(),'yyyy')}]]
+				<a th:href="@{/}" th:text="${options['blog_title']}"></a>
             </section>
             <nav class="site-footer-nav" th:insert="fragment/site-nav::footer-nav">
                 Footer navigation
             </nav>
-            <div>Powered by
+            <div>[[${#themes.code('poweredBy')}]]
                 <a href="https://halo.run/" target="_blank" rel="noopener">Halo</a>
                 &amp;
                 <a href="https://github.com/chuntungho/casper-halo" target="_blank">Casper</a>
@@ -109,6 +144,17 @@ $(document).ready(function () {
 	  "diameter": 40,
 	  "backgroundColor": "rgba(128,128,128,0.5)"
 	});
+	
+	// Language dropdown
+	$(".dropdown-button").click(function(){
+		$(".dropdown-content").toggleClass("show");
+	});
+	
+	window.onclick = function(event) {
+	  if (!event.target.matches('.dropdown-button')) {
+		$(".dropdown-content").removeClass("show");
+	  }
+	};
 });
 </script>
 
