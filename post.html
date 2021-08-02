@@ -33,7 +33,7 @@
                 <div class="article-byline-meta">
                     <h4 class="author-name" th:text="${user.nickname}">author</h4>
                     <div class="byline-meta-content">
-                        <time class="byline-meta-date" th:text="${#dates.format(post.createTime,'yyyy-MM-dd')}">date
+                        <time class="byline-meta-date" th:text="${#dates.format(post.createTime, #themes.code('dateFormat')?:'yyyy-MM-dd')}">date
                         </time>
                     </div>
                 </div>

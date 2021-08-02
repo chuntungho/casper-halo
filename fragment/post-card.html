@@ -29,7 +29,7 @@
             </ul>
             <div class="post-card-byline-content">
                 <span th:text="${user.nickname}">Author Name</span>
-                <span class="post-card-byline-date" th:text="${#dates.format(post.createTime,'yyyy-MM-dd')}">
+                <span class="post-card-byline-date" th:text="${#dates.format(post.createTime, #themes.code('dateFormat')?:'yyyy-MM-dd')}">
                 </span>
             </div>
         </footer>

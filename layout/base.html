@@ -1,6 +1,6 @@
 <!--/* Base layout used for each page except error page */-->
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org" th:locale="${options['blog_locale'] ?: 'zh'}"
+<html xmlns:th="https://www.thymeleaf.org" th:locale="${#locale}"
       th:fragment="html (title, resources, content, bodyClass)">
 <head th:with="_title=${#strings.isEmpty(title) ? options['blog_title'] : (title + ' - ' + options['blog_title'])}">
     <title th:text="${_title}">Blog title</title>
@@ -88,8 +88,10 @@
 				<div class="dropdown" th:with="_locale=${#locale.toString()}">
 				  <a class="dropdown-button" href="#" th:text="${#themes.code('language') ?: 'Lang'}">Lang</a>
 				  <div class="dropdown-content">
-					<a th:href="${_locale=='zh_CN' ? '#' : '?locale=zh_CN'}" th:class="${_locale=='zh_CN' ? 'disabled' : ''}">中</a>
-					<a th:href="${_locale=='en' ? '#' : '?locale=en'}" th:class="${_locale=='en' ? 'disabled' : ''}">en</a>
+					<a th:href="${_locale=='zh_CN' ? '#' : '?locale=zh_CN'}" th:class="${_locale=='zh_CN' ? 'disabled' : ''}">简</a>
+					<a th:href="${_locale=='zh_TW' ? '#' : '?locale=zh_TW'}" th:class="${_locale=='zh_TW' ? 'disabled' : ''}">繁</a>
+					<a th:href="${#locale.language=='ja' ? '#' : '?locale=ja'}" th:class="${#locale.language=='ja' ? 'disabled' : ''}">あ</a>
+					<a th:href="${#locale.language=='en' ? '#' : '?locale=en'}" th:class="${#locale.language=='en' ? 'disabled' : ''}">en</a>
 				  </div>
 				</div>
             </div>
