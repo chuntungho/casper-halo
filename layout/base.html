@@ -90,7 +90,6 @@
 
 <script th:src="@{/assets/js/lib/jquery-3.5.1.min.js}"></script>
 <script th:src="@{/assets/built/casper.js}"></script>
-
 <script>
 $(document).ready(function () {
     // Mobile Menu Trigger
@@ -99,6 +98,17 @@ $(document).ready(function () {
     });
     // FitVids - Makes video embeds responsive
     $(".gh-content").fitVids();
+});
+</script>
+
+<script th:src="@{/assets/js/lib/vanilla-back-to-top.min.js}"></script>
+<script>
+$(document).ready(function () {
+	// back to top
+	addBackToTop({
+	  "diameter": 40,
+	  "backgroundColor": "rgba(128,128,128,0.5)"
+	});
 });
 </script>
 
