@@ -5,13 +5,14 @@
     <th:block th:fragment="resources">
         <th:block th:utext="${options['blog_custom_content_head']}"/>
         <link rel="stylesheet" type="text/css"
-              th:href="@{/assets/prism/css/prism-{style}.css (style=${settings['code_pretty'] ?: 'default'})}" />
-        <script type="text/javascript" th:src="@{/assets/prism/js/prism.js}"></script>
+              th:href="@{/assets/prism/css/prism-{style}.css (v=1.24, style=${settings['code_pretty'] ?: 'default'})}" />
+        <script type="text/javascript" th:src="@{/assets/prism/js/prism.js (v=1.24.1)}"></script>
     </th:block>
 </head>
 
 <body>
-<article th:fragment="content" th:attr="class=|article post ${#strings.isEmpty(post.thumbnail) ? 'no-image' : ''}|">
+<article class="article post" th:fragment="content"
+         th:classappend="${#strings.isEmpty(post.thumbnail)} ? 'no-image' : ''">
     <header class="article-header gh-canvas">
         <section class="article-tag" th:unless="${#lists.isEmpty(post.categories)}">
             <a th:href="${post.categories[0].fullPath}" th:text="${post.categories[0].name}">Category name</a>
@@ -45,7 +46,9 @@
         </figure>
     </header>
 
-    <section class="gh-content gh-canvas" th:utext="${post.formatContent}">
+    <section class="gh-content gh-canvas"
+             th:classappend="${settings['code_line_numbers']} ? 'line-numbers' : ''"
+             th:utext="${post.formatContent}">
         Post content
     </section>
 

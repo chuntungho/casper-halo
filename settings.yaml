@@ -33,6 +33,17 @@ general:
           label: Tomorrow Night
         - value: twilight
           label: Twilight
+    code_line_numbers:
+      name: code_line_numbers
+      label: 代码显示行号
+      type: radio
+      data-type: bool
+      default: false
+      options:
+        - value: true
+          label: 开启
+        - value: false
+          label: 关闭
 #sns:
 #  label: 社交设置
 #  items:

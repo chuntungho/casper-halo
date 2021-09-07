@@ -8,7 +8,8 @@
 
 <body>
 
-<article th:fragment="content" th:attr="class=|article post page ${#strings.isEmpty(post.thumbnail) ? 'no-image' :''}|">
+<article class="article post page" th:fragment="content"
+         th:classappend="${#strings.isEmpty(post.thumbnail)} ? 'no-image' :''">
     <header class="article-header gh-canvas" th:unless="${#strings.isEmpty(post.thumbnail)}">
         <figure class="article-image">
             <img class="site-header-cover" th:src="${post.thumbnail}" src="none"/>
